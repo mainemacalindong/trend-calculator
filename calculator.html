@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trend Calculator</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #ffffff;
+      padding: 24px;
+      margin: 0;
+      color: #1a1a1a;
+    }
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    input[type=number] {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 22px;
+      font-weight: 500;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      box-sizing: border-box;
+      outline: none;
+      margin-bottom: 20px;
+    }
+    input[type=number]:focus { border-color: #888; }
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .results { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .card {
+      background: #f5f5f5;
+      border-radius: 12px;
+      padding: 16px 18px;
+      border: 1.5px solid #e0e0e0;
+    }
+    .card-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 6px;
+    }
+    .card-value {
+      font-size: 28px;
+      font-weight: 500;
+      color: #1a1a1a;
+    }
+    .card-value.empty { color: #bbb; font-size: 20px; }
+    .hint { font-size: 11px; color: #aaa; margin-top: 14px; }
+  </style>
+</head>
+<body>
+  <label>Enter your value</label>
+  <input type="number" id="main-input" placeholder="0" min="0" oninput="calculate(this.value)">
+  <div class="results">
+    <div class="card">
+      <div class="card-label">Trend Gap</div>
+      <div class="card-value empty" id="gap-value">—</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Trend Range</div>
+      <div class="card-value empty" id="range-value">—</div>
+    </div>
+  </div>
+  <div class="hint">Trend Range steps by 500 for every 2,000 increase, up to 72,000.</div>
+
+  <script>
+    function trendRange(v) {
+      if (v <= 0)     return null;
+      if (v <= 2000)  return 500;
+      if (v <= 4000)  return 1000;
+      if (v <= 6000)  return 1500;
+      if (v <= 8000)  return 2000;
+      if (v <= 10000) return 2500;
+      if (v <= 12000) return 3000;
+      if (v <= 14000) return 3500;
+      if (v <= 16000) return 4000;
+      if (v <= 18000) return 4500;
+      if (v <= 20000) return 5000;
+      if (v <= 22000) return 5500;
+      if (v <= 24000) return 6000;
+      if (v <= 26000) return 6500;
+      if (v <= 28000) return 7000;
+      if (v <= 30000) return 7500;
+      if (v <= 32000) return 8000;
+      if (v <= 34000) return 8500;
+      if (v <= 36000) return 9000;
+      if (v <= 38000) return 9500;
+      if (v <= 40000) return 10000;
+      if (v <= 42000) return 10500;
+      if (v <= 44000) return 11000;
+      if (v <= 46000) return 11500;
+      if (v <= 48000) return 12000;
+      if (v <= 50000) return 12500;
+      if (v <= 52000) return 13000;
+      if (v <= 54000) return 13500;
+      if (v <= 56000) return 14000;
+      if (v <= 58000) return 14500;
+      if (v <= 60000) return 15000;
+      if (v <= 62000) return 15500;
+      if (v <= 64000) return 16000;
+      if (v <= 66000) return 16500;
+      if (v <= 68000) return 17000;
+      if (v <= 70000) return 17500;
+      if (v <= 72000) return 18000;
+      return null;
+    }
+
+    function calculate(raw) {
+      const v = parseFloat(raw);
+      const gapEl = document.getElementById('gap-value');
+      const rangeEl = document.getElementById('range-value');
+
+      if (!raw || isNaN(v) || v <= 0) {
+        gapEl.textContent = '—'; gapEl.className = 'card-value empty';
+        rangeEl.textContent = '—'; rangeEl.className = 'card-value empty';
+        return;
+      }
+
+      gapEl.textContent = (v * 0.25).toLocaleString();
+      gapEl.className = 'card-value';
+
+      const range = trendRange(v);
+      if (range !== null) {
+        rangeEl.textContent = range.toLocaleString();
+        rangeEl.className = 'card-value';
+      } else {
+        rangeEl.textContent = 'Out of range';
+        rangeEl.className = 'card-value empty';
+      }
+    }
+  </script>
+</body>
+</html>
