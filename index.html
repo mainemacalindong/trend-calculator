@@ -35,7 +35,11 @@
     input[type=number]:focus { border-color: #888; }
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
-    .results { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .results {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
     .card {
       background: #f5f5f5;
       border-radius: 12px;
@@ -56,6 +60,11 @@
       color: #1a1a1a;
     }
     .card-value.empty { color: #bbb; font-size: 20px; }
+    .card-note {
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 4px;
+    }
     .hint { font-size: 11px; color: #aaa; margin-top: 14px; }
   </style>
 </head>
@@ -74,6 +83,11 @@
     <div class="card">
       <div class="card-label">Position</div>
       <div class="card-value empty" id="position-value">—</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Minimum TP Target</div>
+      <div class="card-value empty" id="tp-value">—</div>
+      <div class="card-note" id="tp-note"></div>
     </div>
   </div>
   <div class="hint">Trend Range steps by 500 for every 2,000 increase, up to 72,000.</div>
@@ -125,11 +139,15 @@
       const gapEl = document.getElementById('gap-value');
       const rangeEl = document.getElementById('range-value');
       const posEl = document.getElementById('position-value');
+      const tpEl = document.getElementById('tp-value');
+      const tpNote = document.getElementById('tp-note');
 
       if (!raw || isNaN(v) || v <= 0) {
         gapEl.textContent = '—'; gapEl.className = 'card-value empty';
         rangeEl.textContent = '—'; rangeEl.className = 'card-value empty';
         posEl.textContent = '—'; posEl.className = 'card-value empty';
+        tpEl.textContent = '—'; tpEl.className = 'card-value empty';
+        tpNote.textContent = '';
         return;
       }
 
@@ -150,6 +168,17 @@
       // Position — input / 3 rounded up, no decimal
       posEl.textContent = Math.ceil(v / 3).toLocaleString();
       posEl.className = 'card-value';
+
+      // Minimum TP Target — 20% of input, minimum 400
+      const computed = Math.ceil(v * 0.20);
+      if (computed < 400) {
+        tpEl.textContent = (400).toLocaleString();
+        tpNote.textContent = '20% is below 400 — using floor of 400';
+      } else {
+        tpEl.textContent = computed.toLocaleString();
+        tpNote.textContent = '20% of input value';
+      }
+      tpEl.className = 'card-value';
     }
   </script>
 </body>
