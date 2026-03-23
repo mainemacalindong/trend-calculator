@@ -127,7 +127,7 @@
         return;
       }
 
-      gapEl.textContent = (v * 0.25).toLocaleString();
+      gapEl.textContent = Math.ceil(v * 0.25).toLocaleString()
       gapEl.className = 'card-value';
 
       const range = trendRange(v);
