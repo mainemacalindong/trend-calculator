@@ -35,7 +35,7 @@
     input[type=number]:focus { border-color: #888; }
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
-    .results { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .results { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
     .card {
       background: #f5f5f5;
       border-radius: 12px;
@@ -70,6 +70,10 @@
     <div class="card">
       <div class="card-label">Trend Range</div>
       <div class="card-value empty" id="range-value">—</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Position</div>
+      <div class="card-value empty" id="position-value">—</div>
     </div>
   </div>
   <div class="hint">Trend Range steps by 500 for every 2,000 increase, up to 72,000.</div>
@@ -120,16 +124,20 @@
       const v = parseFloat(raw);
       const gapEl = document.getElementById('gap-value');
       const rangeEl = document.getElementById('range-value');
+      const posEl = document.getElementById('position-value');
 
       if (!raw || isNaN(v) || v <= 0) {
         gapEl.textContent = '—'; gapEl.className = 'card-value empty';
         rangeEl.textContent = '—'; rangeEl.className = 'card-value empty';
+        posEl.textContent = '—'; posEl.className = 'card-value empty';
         return;
       }
 
-      gapEl.textContent = Math.ceil(v * 0.25).toLocaleString()
+      // Trend Gap — 25% rounded up, no decimal
+      gapEl.textContent = Math.ceil(v * 0.25).toLocaleString();
       gapEl.className = 'card-value';
 
+      // Trend Range — stepped formula
       const range = trendRange(v);
       if (range !== null) {
         rangeEl.textContent = range.toLocaleString();
@@ -138,6 +146,10 @@
         rangeEl.textContent = 'Out of range';
         rangeEl.className = 'card-value empty';
       }
+
+      // Position — input / 3 rounded up, no decimal
+      posEl.textContent = Math.ceil(v / 3).toLocaleString();
+      posEl.className = 'card-value';
     }
   </script>
 </body>
