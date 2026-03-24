@@ -45,6 +45,7 @@
       border-radius: 12px;
       padding: 12px 12px;
       border: 1.5px solid #e0e0e0;
+      display: flex;
     }
     .card-label {
       font-size: 11px;
@@ -53,6 +54,7 @@
       text-transform: uppercase;
       letter-spacing: .05em;
       margin-bottom: 6px;
+      margin-right: 10px;
     }
     .card-value {
       font-size: 20px;
@@ -73,19 +75,19 @@
   <input type="number" id="main-input" placeholder="0" min="0" oninput="calculate(this.value)">
   <div class="results">
     <div class="card">
-      <div class="card-label">Trend Gap Calculated</div>
+      <div class="card-label">Trend Gap Calculated:</div>
       <div class="card-value empty" id="gap-value">—</div>
     </div>
     <div class="card">
-      <div class="card-label">Trend Range</div>
+      <div class="card-label">Trend Range:</div>
       <div class="card-value empty" id="range-value">—</div>
     </div>
     <div class="card">
-      <div class="card-label">Position</div>
+      <div class="card-label">Position:</div>
       <div class="card-value empty" id="position-value">—</div>
     </div>
     <div class="card">
-      <div class="card-label">Minimum TP Target</div>
+      <div class="card-label">Minimum TP Target:</div>
       <div class="card-value empty" id="tp-value">—</div>
       <div class="card-note" id="tp-note"></div>
     </div>
