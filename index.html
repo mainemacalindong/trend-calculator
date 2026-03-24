@@ -23,14 +23,14 @@
     }
     input[type=number] {
       width: 100%;
-      padding: 10px 14px;
-      font-size: 22px;
+      padding: 10px 10px;
+      font-size: 18px;
       font-weight: 500;
       border: 1.5px solid #ddd;
       border-radius: 8px;
       box-sizing: border-box;
       outline: none;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     input[type=number]:focus { border-color: #888; }
     input[type=number]::-webkit-inner-spin-button,
@@ -38,12 +38,12 @@
     .results {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
     }
     .card {
       background: #f5f5f5;
       border-radius: 12px;
-      padding: 12px 12px;
+      padding: 10px 10px;
       border: 1.5px solid #e0e0e0;
       display: flex;
     }
@@ -53,11 +53,10 @@
       color: #888;
       text-transform: uppercase;
       letter-spacing: .05em;
-      margin-bottom: 6px;
       margin-right: 10px;
     }
     .card-value {
-      font-size: 20px;
+      font-size: 15px;
       font-weight: 500;
       color: #1a1a1a;
     }
@@ -177,7 +176,7 @@
         tpNote.textContent = '20% is below 400 — using floor of 400';
       } else {
         tpEl.textContent = computed.toLocaleString();
-        tpNote.textContent = '20% of input value';
+        tpNote.textContent = '';
       }
       tpEl.className = 'card-value';
     }
