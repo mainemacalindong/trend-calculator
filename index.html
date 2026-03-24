@@ -173,7 +173,7 @@
       const computed = Math.ceil(v * 0.20);
       if (computed < 400) {
         tpEl.textContent = (400).toLocaleString();
-        tpNote.textContent = '20% is below 400 — using floor of 400';
+        tpNote.textContent = '';
       } else {
         tpEl.textContent = computed.toLocaleString();
         tpNote.textContent = '';
